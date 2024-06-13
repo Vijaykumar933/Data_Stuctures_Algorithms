@@ -25,3 +25,11 @@ class Linked_List:
     
 
 
+
+if __name__ =="__main__":
+    my_linked_list = Linked_List(1)
+    my_linked_list.print_list()
+
+    
+
+
