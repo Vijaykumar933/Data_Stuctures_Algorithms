@@ -238,3 +238,91 @@ def parenthesis_check(s):
 print(parenthesis_check('[[((1234))]]'))
 
 
+def is_balanced(s):
+    # Create a stack to keep track of opening parentheses
+    stack = []
+
+    # Dictionary to hold matching pairs
+    matching_parenthesis = {')': '(', '}': '{', ']': '['}
+
+    # Iterate through each character in the string
+    for char in s:
+        if char in matching_parenthesis.values():
+            # If the character is an opening parenthesis, push it onto the stack
+            stack.append(char)
+        elif char in matching_parenthesis.keys():
+            # If the character is a closing parenthesis, check for a matching opening parenthesis
+            if stack == [] or matching_parenthesis[char] != stack.pop():
+                return False
+        else:
+            # Ignore other characters
+            continue
+
+    # If the stack is empty, all parentheses were matched; otherwise, they were not balanced
+    return stack == []
+
+
+# Example usage
+print(is_balanced("()"))  # Output: True
+print(is_balanced("()[]{}"))  # Output: True
+print(is_balanced("(]"))  # Output: False
+print(is_balanced("([)]"))  # Output: False
+print(is_balanced("{[]}"))  # Output: True
+print(is_balanced("{[a+b]*(c-d)}"))  # Output: True (ignoring non-parenthesis characters)
+
+print([i for i in range(2,100) if all(i%j!=0 for j in range(2,i))])
+
+my_list = [3, 1, 4, 1, 5, 9]
+print(my_list.sort(reverse=True))
+print(my_list)
+numbers = [1, 2, 3, 4, 5, 6]
+print(list(filter(lambda x: x%2==0, numbers)))
+print(list(map(lambda x: x*x, numbers)))
+from functools import reduce
+print(reduce(lambda x,y:x+y , numbers))
+
+def my_decor(func):
+    def wrapper(a,b):
+        a = a-1
+        b = b-1
+        result = func(a,b)
+        return result
+    return wrapper
+
+@my_decor
+def add(a,b):
+    return a+b
+print(add(4,5))
+
+def modify():
+    a= 5
+    def get_new():
+        nonlocal a
+        a = a+5
+    get_new()
+    print(a)
+modify()
+
+# Using a generator function
+def generate_squares(n):
+    for x in range(n):
+        yield x**2
+
+gen = generate_squares(10)
+# for val in gen:
+#     print(val)
+from functools import reduce
+
+# List of numbers
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# Filter even numbers
+even_numbers = filter(lambda x: x % 2 == 0, numbers)
+
+# Double each even number
+doubled = map(lambda x: x * 2, even_numbers)
+
+# Sum all doubled even numbers
+total = reduce(lambda x, y: x + y, doubled)
+
+print(total)  # Output: 60

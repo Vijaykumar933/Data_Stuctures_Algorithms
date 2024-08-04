@@ -40,13 +40,14 @@ class LinkedList:
         value: value of a node
         """
         new_node = Node(value)
-        if self.head is None:
+        if self.length == 0:
             self.head = new_node
             self.tail = new_node
         else:
             self.tail.next = new_node
             self.tail = new_node
         self.length += 1
+        return True
 
     def pop(self):
         """
@@ -63,7 +64,7 @@ class LinkedList:
         self.tail = pre
         self.tail.next = None
         self.length -= 1
-        if self.length ==0:
+        if self.length == 0:
             self.head = None
             self.tail = None
         return temp
@@ -111,13 +112,47 @@ class LinkedList:
             temp = temp.next
         return temp
 
+    def set_value(self, index, value):
+        """
+        sets the particular index value
+        index: index of linked list to the value
+        value: value to be set
+        return: boolean
+        """
+        temp = self.get(index) #saving for tem
+        if temp:
+            temp.value = value
+            return True
+        return False
 
+    def insert(self, index, value):
+        """
+        inserts new node at the given index
+        index: to insert the node
+        value : node value
+        """
+        if index<0 or index>self.length:
+            return False
+        if index == 0:
+            return self.prepend(value)
+        if index == self.length-1:
+            return self.append(value)
+        new_node = Node(value)
+        pre = self.get(index-1)
+        new_node.next = pre.next
+        pre.next = new_node
+        self.length += 1
+        return True
 
-
+    def remove(self, index):
+        """
+        removes the value at given index
+        index: where to remove the node
+        """
 
 if __name__ == "__main__":
     my_linked_list = LinkedList(1)
-    # my_linked_list.print_list()
+    my_linked_list.print_list()
     my_linked_list.append(2)
     # my_linked_list.print_list()
     print(my_linked_list.pop())
