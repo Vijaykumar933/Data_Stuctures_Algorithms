@@ -119,7 +119,7 @@ class LinkedList:
         value: value to be set
         return: boolean
         """
-        temp = self.get(index) #saving for tem
+        temp = self.get(index)  # saving for tem
         if temp:
             temp.value = value
             return True
@@ -131,14 +131,14 @@ class LinkedList:
         index: to insert the node
         value : node value
         """
-        if index<0 or index>self.length:
+        if index < 0 or index > self.length:
             return False
         if index == 0:
             return self.prepend(value)
-        if index == self.length-1:
+        if index == self.length - 1:
             return self.append(value)
         new_node = Node(value)
-        pre = self.get(index-1)
+        pre = self.get(index - 1)
         new_node.next = pre.next
         pre.next = new_node
         self.length += 1
@@ -149,6 +149,35 @@ class LinkedList:
         removes the value at given index
         index: where to remove the node
         """
+        if index < 0 or index >= self.length:
+            return None
+        if index == 0:
+            return self.pop_first()
+        if index == self.length - 1:
+            return self.pop()
+
+        pre = self.get(index - 1)
+        temp = pre.next
+        pre.next = temp.next
+        temp.next = None
+        self.length -= 1
+        return temp
+
+    def reverse(self):
+        """
+        reverse the list
+        """
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+        after = temp.next
+        before = None
+        for _ in range(self.length):
+            after = temp.next
+            temp.next = before
+            before = temp
+            temp = after
+
 
 if __name__ == "__main__":
     my_linked_list = LinkedList(1)
